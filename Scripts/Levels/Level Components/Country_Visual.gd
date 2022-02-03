@@ -14,6 +14,7 @@ const mask_colors = {"white": Color8(255,255,255,255),
 # Time to take to move during the attack animation
 const destination_movement_duration = 0.2
 const origin_movement_duration = 0.4
+const congestion_tween_duration = 1
 
 var P = null
 var Game_Manager = null
@@ -101,9 +102,16 @@ func show_statused(status_name, boolean):
 
 func update_congestion():
 	$"Status/ProgressBar".max_value = P.max_troops
-	$"Status/ProgressBar".value = P.num_troops+P.num_reinforcements
+	# $"Status/ProgressBar".value = P.num_troops+P.num_reinforcements
+	tween_congestion()
 	# Updating the denominator
 	show_congestion_denominator(denominator_showing)
+	
+func tween_congestion():
+	$Tween.interpolate_property($"Status/ProgressBar", "value", $"Status/ProgressBar".value, P.num_troops + P.num_reinforcements, congestion_tween_duration, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
+	$Tween.start()
+	
+	#$"Status/ProgressBar".value
 
 func show_num_reinforcements():
 	$"Reinforcements".visible = P.num_reinforcements > 0

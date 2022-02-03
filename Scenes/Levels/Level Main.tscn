@@ -56,7 +56,6 @@ margin_bottom = 236.0
 alignment = 2
 
 [node name="Status" type="TextureRect" parent="CanvasLayer/Game Info/blue/VBoxContainer"]
-visible = false
 margin_top = 122.0
 margin_right = 110.0
 margin_bottom = 122.0
